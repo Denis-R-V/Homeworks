@@ -33,15 +33,15 @@ RandForest = pickle.load(open("NLP_model/model_GradBst.pkl", 'rb'))
 Stacking_models = pickle.load(open("NLP_model/model_Stacking_models.pkl", 'rb'))
 
 def string_to_tfidf(phrase):
-    # токенизация
+    # tokenizing
     phrase_tok = tokenizer.tokenize(phrase.lower())
-    # препроцессинг фразы
+    # preprocessing
     phrase_lem_stem = []
     for w in phrase_tok:
         if w not in stop_words and w not in special_char:
-            # лемматизация и стемминг русских слов
+            # lemmatization and stemming rus
             word_lem_stem_rus = snowball.stem(morph.normal_forms(w)[0])
-            # лемматизация и стемминг английских слов
+            # lemmatization and stemming eng
             word_lem_stem_rus_eng = ps.stem((lemmatizer.lemmatize(word_lem_stem_rus)))
             phrase_lem_stem.append(word_lem_stem_rus_eng)
             string = (' '.join(phrase_lem_stem))
